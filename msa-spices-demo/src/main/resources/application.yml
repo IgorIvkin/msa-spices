@@ -1,0 +1,9 @@
+server:
+  port: 8080
+
+logging:
+  level:
+    com:
+      igorivkin:
+        msaspices:
+          lib: DEBUG
