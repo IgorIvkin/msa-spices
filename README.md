@@ -63,3 +63,31 @@ A typical request and response will be looking like:
 
 Logger based on **Slf4j** so it can work with log4j2 or Logback by your choice. Just put your preferred
 dependency, and it should start to work with appropriate logging backend.
+
+
+## Rate limiting
+
+Rate limiting is a way to restrict access to some resource in time. It allows
+to limit access to something, saying, with N requests per period of time. For example
+some kind of API allows to request it not more often than 5 times per second.
+
+Library provides a class `RateLimiter` for such a purpose. It provides a simple
+API to use:
+
+```java
+RateLimiter rateLimiter = RateLimiter.ofRate(5);
+rateLimiter.acquire(1);
+accessToSomeResourceThatShouldBeLimited();
+```
+
+In this example we will call `accessToSomeResourceThatShouldBeLimited()` not more
+often than 5 times per 1 second (by default it uses 1 second to restrict) but you can
+specify a second parameter to provide other time period in milliseconds.
+
+For example:
+
+```java
+RateLimiter rateLimiter = RateLimiter.ofRate(5, 2000L);
+```
+
+It means: 5 requests per 2 seconds.
